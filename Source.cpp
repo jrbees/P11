@@ -7,23 +7,22 @@ using namespace std;
 
 const int ROWS = 8;
 const int COLS = 13;
-const char EMPTY_SEAT = ' ';
 const char OCCUPIED_SEAT = 'X';
 
 // Function prototypes
 int findRowIndex(char thisRow);
-int findSeatIndex(int thisSeat);
+int findSeatIndex(int thisSeat, int rowIndex);
 void displaySeatChart(char seats[][COLS]);
 bool reserveSeat(char seats[][COLS], int row, int column);
 
 int main() {
     char seats[ROWS][COLS] = {
-        {'D', 'D', 'D', 'D', 'D', 'D', 'D', 'D', 'D', 'D', 'D', 'D', EMPTY_SEAT}, // Row 1
-        {'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', EMPTY_SEAT}, // Row 2
-        {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '}, // Row 3 (Empty)
+        {'D', 'D', 'D', 'D', 'D', 'D', 'D', 'D', 'D', 'D', 'D', 'D', ' '},         // Row 1
+        {'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', ' '},         // Row 2
+        {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},         // Row 3 (Empty)
         {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '1', '1', '1', '1'},         // Row 4
         {'1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '1', '2', '3'},         // Row 5
-        {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},   // Row 6 (Empty)
+        {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},         // Row 6 (Empty)
         {'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B'},         // Row 7
         {'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A'}          // Row 8
     };
@@ -48,7 +47,7 @@ int main() {
         stringstream(input) >> row >> seatNumber;
 
         int rowIndex = findRowIndex(row);
-        int seatIndex = findSeatIndex(seatNumber);
+        int seatIndex = findSeatIndex(seatNumber, rowIndex);
 
         if (rowIndex == -1 || seatIndex == -1) {
             cout << "Invalid seat. Please try again." << endl;
@@ -93,8 +92,8 @@ int findRowIndex(char thisRow) {
 }
 
 // Function to find the seat index
-int findSeatIndex(int thisSeat) {
-    if (thisSeat < 1 || thisSeat > COLS ) {
+int findSeatIndex(int thisSeat, int rowIndex) {
+    if (thisSeat < 1 || thisSeat > COLS || (thisSeat == 13 && (rowIndex == 0 || rowIndex == 1))) {
         return -1; // Invalid seat index
     }
     else {
