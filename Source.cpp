@@ -94,7 +94,7 @@ int findRowIndex(char thisRow) {
 
 // Function to find the seat index
 int findSeatIndex(int thisSeat) {
-    if (thisSeat < 1 || thisSeat > COLS || (thisSeat == 13 && (thisSeat == 3 || thisSeat == 13))) {
+    if (thisSeat < 1 || thisSeat > COLS ) {
         return -1; // Invalid seat index
     }
     else {
